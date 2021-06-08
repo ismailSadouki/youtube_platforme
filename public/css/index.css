@@ -1,0 +1,246 @@
+@font-face {
+    font-family: "cairoFont";
+    src: url(../fonts/Cairo-Regular.ttf);
+}
+
+
+body {
+    font-family: "cairoFont", Arial, sans-serif;
+    background-color: #fafafa;
+}
+a 
+{
+    color: #000;
+    text-decoration: none !important;
+}
+button
+{
+    background-color: transparent !important;
+    color: #bf40bf !important;
+    border-color: #bf40bf !important;
+}
+button:hover 
+{
+    color: #fff !important;
+    background-color: #bf40bf !important;
+}
+
+#top-menu .bg-light{
+    background-color: #ffffff !important;
+}
+
+#top-menu .video-icon
+{
+    background-color: #bf40bf;
+    color: #fff;
+    border-radius:  15%;
+}
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .active>.nav-link
+{
+    color: #fff;
+    background-color: #bf40bf;
+}
+
+.navbar .login 
+{
+    color: #bf40bf;
+}
+.modal .modal-header .close:hover 
+{
+    color: #bf40bf !important;
+    background-color: transparent !important;
+}
+
+input.form-control:focus,
+button:focus {
+    box-shadow: none !important;
+}
+
+.card .card-icons
+{
+    position: relative;
+}
+.card .card-title
+{
+    height: 50px;
+    overflow: hidden;
+}
+
+.card .card-horizontal .card-body p 
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-body {
+    min-width: 0;
+}
+
+time {
+    position: absolute;
+    bottom: 10px;
+    left:7px;
+    color: #fff;
+    background-color: #000;
+    padding: 0px 3px;
+}
+
+.card .card-icons .fa-play
+{
+    position: absolute;
+    top: 43%;
+    right: 41%;
+    color: #2c3131c7;
+    display: none;
+}
+
+.card:hover .card-icons .fa-play
+{
+    display: inline;
+}
+
+.card:hover 
+{
+    transform: translateY(-.9%)
+}
+.card {
+    transition: transform .5s;
+}
+
+#top-menu .fa-bars 
+{
+    cursor: pointer;
+}
+
+.sidebar {
+    position: fixed;
+    z-index: 4;
+    right: -17rem;
+    transition: all 0.5s ease-in-out;
+    height: 100%;
+    background-color: #fff;
+    overflow: hidden;
+    padding-bottom: 60px;
+
+}
+
+.sidebar:hover 
+{
+    overflow-y: scroll;
+}
+
+.sidebar .purple
+{
+    color: #bf40bf;
+}
+.sidebar .list-group-item:hover .purple
+{
+    color: #fff;
+}
+
+.sidebar .list-group-item:hover
+{
+    color: #fff;
+    background-color: #bf40bf;
+}
+
+.sidebar .list-group-item
+{
+    width: 17rem;
+    
+}
+
+#wrap.toggled .sidebar {
+    right: 0rem;
+}
+
+.sidebar::-webkit-scrollbar
+{
+    background: rgb(230, 230, 230);
+    width: 8px;
+
+} 
+
+.sidebar::-webkit-scrollbar-thumb 
+{
+    background: rgb(179, 179, 179);
+    width: 8px;
+
+}
+.sidebar .list-group .last-a
+{
+    padding-bottom: 150px;
+}
+
+.layer 
+{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    background-color: rgba(0 , 0, 0, 0.5);
+    z-index: 3;
+    display: none;
+}
+
+
+.navbar .search-icon
+{
+    color: #bf40bf;
+    cursor: pointer;
+    padding: 15px 10px;
+    position: absolute;
+    top: 15px;
+    left: 132px;
+    display: none;
+    
+}
+
+.navbar .search-icon:hover 
+{
+    color: #fff;
+    background-color: #bf40bf;
+}
+
+.search-input
+{
+    position: fixed;
+    top: 72px;
+    border: none;
+    padding: 6px 23px;
+    height: 60px;
+    background-color: #d8d2d2;
+    display: none;
+    z-index: 1;
+} 
+.search-input:focus
+{
+    background-color: #efeeee;
+}
+
+.container-fluid {
+    padding: 0px;
+    overflow: hidden;
+}
+
+@media(max-width: 1120px) {
+    .navbar .collapse .form-inline {
+        display: none;
+    }
+    .navbar .search-icon
+    {
+        display: inline;
+    }
+    
+}
+
+@media(min-width: 1120px) {
+    .search-input 
+    {
+        display: none !important;
+    }
+}
+
+
