@@ -30,6 +30,9 @@
  
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-lg-auto px-md-0 px-lg-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link mr-2 px-3 ml-1" href="{{ route('videos.create') }}"><i class="fas fa-file-upload"></i></a>
+                    </li>
                   <li class="nav-item first-list-element">
                     <a class="nav-link mr-2 px-3 ml-1" href="#">الفيديوهات المقترحة</a>
                   </li>

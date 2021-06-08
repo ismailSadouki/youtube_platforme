@@ -177,6 +177,8 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +230,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'FFMpeg' => ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::class
 
     ],
 
