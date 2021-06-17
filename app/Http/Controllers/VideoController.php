@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ConvertVideoForStreaming;
+use App\Models\Convertedvideo;
 use App\Models\Video;
-use FFMpeg\Format\Video\X264;
-use FFMpeg\Format\Audio\Aac;
-use FFMpeg\Coordinate\Dimension;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+
 
 class VideoController extends Controller
 {
+
+
+    public function __construct() 
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +29,9 @@ class VideoController extends Controller
      */
     public function index()
     {
-        //
+        $videos = auth()->user()->videos->sortByDesc('created_at');
+        $title = 'أخر الفيديوهات المرفوعة';
+        return view('videos.my-videos', compact('videos', 'title'));
     }
 
     /**
@@ -66,62 +76,12 @@ class VideoController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        $lowBitrateFormat = (new X264('aac', 'libx264'))->setKiloBitrate(500); //240p
-        $low2_BitrateFormat = (new X264('aac', 'libx264'))->setKiloBitrate(900); //360p
-        $mediumBitrateFormat = (new X264('aac', 'libx264'))->setKiloBitrate(1500); //480p
-        $highBitrateFormat = (new X264('aac', 'libx264'))->setKiloBitrate(3000); //720p
+        ConvertVideoForStreaming::dispatch($video);
 
-        $convertedName = '240-' . $video->video_path;
-        $convertedName_360 = '360-' . $video->video_path;
-        $convertedName_480 = '480-' . $video->video_path;
-        $convertedName_720 = '720-' . $video->video_path;
-
-        FFMpeg::fromDisk($video->disk)
-            ->open($video->video_path)
-
-            // 240p
-        
-            ->addFilter(function ($filters) {
-                $filters->resize(new Dimension(426, 240));
-            })
-            ->export()
-            ->toDisk('public')
-            ->inFormat($lowBitrateFormat)
-            ->save($convertedName)
-
-            //360p
-
-            ->addFilter(function ($filters) {
-                $filters->resize(new Dimension(640, 360));
-            })
-            ->export()
-            ->toDisk('public')
-            ->inFormat($low2_BitrateFormat)
-            ->save($convertedName_360)
-
-            // 480p
-
-            ->addFilter(function ($filters) {
-                $filters->resize(new Dimension(854, 480));
-            })
-            ->export()
-            ->toDisk('public')
-            ->inFormat($mediumBitrateFormat)
-            ->save($convertedName_480)
-
-            // 720p
-            ->addFilter(function ($filters) {
-                $filters->resize(new Dimension(1280, 720));
-            })
-            ->export()
-            ->toDisk('public')
-            ->inFormat($highBitrateFormat)
-            ->save($convertedName_720);
-
-            return redirect()->back()->with(
-                'success',
-                'جاري معالجة الفيديو, سيكون متوفر في اقرب وقت.'
-            );
+        return redirect()->back()->with(
+            'success',
+            'جاري معالجة الفيديو, سيكون متوفر في اقرب وقت.'
+        );
 
     }
 
@@ -167,6 +127,25 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $video = Video::where('id', $id)->first();
+        $convertedVideos = Convertedvideo::where('video_id', $id)->get();
+        foreach ($convertedVideos as $convertedVideo) {
+            Storage::delete([
+                $convertedVideo->mp4_Format_240,
+                $convertedVideo->mp4_Format_360,
+                $convertedVideo->mp4_Format_480,
+                $convertedVideo->mp4_Format_720,
+                $convertedVideo->mp4_Format_1080,
+                $convertedVideo->webm_Format_240,
+                $convertedVideo->webm_Format_360,
+                $convertedVideo->webm_Format_480,
+                $convertedVideo->webm_Format_720,
+                $convertedVideo->webm_Format_1080,
+                $video->image_path,
+            ]);
+        }
+
+        $video->delete();
+        return back()->with('success', 'تم حذف مقطع الفيديو بنجاح');
     }
 }
