@@ -104,7 +104,8 @@ class VideoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $video = Video::where('id', $id)->first();
+        return view('videos.edit-video', compact('video'));
     }
 
     /**
@@ -116,7 +117,33 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+        ]);
+
+        $video = Video::where('id', $id)->first();
+
+        if ($request->has('image')) {
+            $randomPath = Str::random(16);
+            $newPath = $randomPath . '.' . $request->image->getClientOriginalExtension();
+            
+            Storage::delete($video->image_path);
+            
+            $image = Image::make($request->image)->resize(320, 180);
+            //Store with stream
+            $path = Storage::put($newPath, $image->stream());
+
+            $video->image_path = $newPath;
+        }    
+
+        $video->title = $request->title;
+
+        $video->save();
+
+        return redirect('/videos')->with(
+            'success',
+            'تم تعديل بيانات الفيديو بنجاح'
+        );
     }
 
     /**
@@ -147,5 +174,13 @@ class VideoController extends Controller
 
         $video->delete();
         return back()->with('success', 'تم حذف مقطع الفيديو بنجاح');
+    }
+
+
+    public function search(Request $request) 
+    {
+        $videos = Video::where('title', 'like', "%{$request->term}%")->paginate(12);
+        $title = 'عرض نتائج البحث عن' . $request->term;
+        return view('videos.my-videos', compact('videos', 'title'));
     }
 }

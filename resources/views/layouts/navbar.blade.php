@@ -23,8 +23,10 @@
      </ul>
 
      <div class="form-inline my-2 my-lg-0">
-       <input class="form-control mr-sm-2" type="search" placeholder="ابحث عن ..." a>
-       <button class="btn btn-outline-info my-2 my-sm-0 " type="submit" onclick="location.href='search.html';">ابحث</button>
+        <form action="{{ route('video.search') }}" method="GET">
+            <input class="form-control mr-sm-2" type="text" placeholder="ابحث عن ..." name="term">
+            <button class="btn btn-outline-info my-2 my-sm-0 " type="submit" >ابحث</button>
+        </form>
      </div>
       <i class="fas fa-search mr-4 search-icon"></i>
 
@@ -118,7 +120,9 @@
   
 
 </nav>
-<input type="search" class="form-control search-input " placeholder="ابحث عن ...">
+{{-- <form action="{{ route('video.search') }}" method="GET"> --}}
+    <input type="text" class="form-control search-input " placeholder="ابحث عن ..." name="term">
+{{-- </form> --}}
 
 
 <!-- Modal -->

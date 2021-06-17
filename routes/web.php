@@ -23,3 +23,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('/videos', VideoController::class);
+
+Route::get('/video/search', [VideoController::class, 'search'])->name('video.search');

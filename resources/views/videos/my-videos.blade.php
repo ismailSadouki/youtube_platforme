@@ -71,6 +71,11 @@
                                         @method('DELETE')
                                         <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>
                                     </form>
+
+                                    <form action="{{ route('videos.edit', $video->id) }}"   method="GET">
+                                        @method('PATCH')
+                                        <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>
+                                    </form>
                                 @endif
                             @endauth
                         </small>
