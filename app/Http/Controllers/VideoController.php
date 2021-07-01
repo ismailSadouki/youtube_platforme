@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Convertedvideo;
+use App\Models\Like;
 use App\Models\Video;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -91,9 +93,19 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Video $video)
     {
-        //
+        $countLike = Like::where('video_id', $video->id)->where('like', '1')->count();
+        $countDislike = Like::where('video_id', $video->id)->where('like', '0')->count();
+
+        $user = Auth::user();
+        if ( Auth::check() ) {
+            $userLike = $user->likes()->where('video_id', $video->id)->first();
+        } else {
+            $userLike = 0;
+        }
+
+        return view('videos.show-video', compact('video', 'countLike', 'countDislike', 'userLike'));
     }
 
     /**

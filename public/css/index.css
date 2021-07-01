@@ -1,6 +1,6 @@
 @font-face {
     font-family: "cairoFont";
-    src: url(../fonts/Cairo-Regular.ttf);
+    src: url(/fonts/Cairo-Regular.ttf);
 }
 
 
@@ -249,4 +249,8 @@ i.fa-file-video
 {
     font-size: 25px;
     box-shadow: 5px 5px 10px black;
+}
+
+.button-not-hover:hover {
+    background-color: #fff !important;
 }

@@ -73,19 +73,19 @@ class ConvertVideoForStreaming implements ShouldQueue
 
         $this->names = array(
             array(
-                '1080p-' . $this->getFileName($this->video->video_path, '.mp4'), '1080p-' . $this->getFileName($this->video->video_path, 'webm')
+                '1080p-' . $this->getFileName($this->video->video_path, '.mp4'), '1080p-' . $this->getFileName($this->video->video_path, '.webm')
             ),
             array(
-                '720p-' . $this->getFileName($this->video->video_path, '.mp4'), '720p-' . $this->getFileName($this->video->video_path, 'webm')
+                '720p-' . $this->getFileName($this->video->video_path, '.mp4'), '720p-' . $this->getFileName($this->video->video_path, '.webm')
             ),
             array(
-                '480p-' . $this->getFileName($this->video->video_path, '.mp4'), '480p-' . $this->getFileName($this->video->video_path, 'webm')
+                '480p-' . $this->getFileName($this->video->video_path, '.mp4'), '480p-' . $this->getFileName($this->video->video_path, '.webm')
             ),
             array(
-                '360p-' . $this->getFileName($this->video->video_path, '.mp4'), '360p-' . $this->getFileName($this->video->video_path, 'webm')
+                '360p-' . $this->getFileName($this->video->video_path, '.mp4'), '360p-' . $this->getFileName($this->video->video_path, '.webm')
             ),
             array(
-                '240p-' . $this->getFileName($this->video->video_path, '.mp4'), '240p-' . $this->getFileName($this->video->video_path, 'webm')
+                '240p-' . $this->getFileName($this->video->video_path, '.mp4'), '240p-' . $this->getFileName($this->video->video_path, '.webm')
             ),
         );
 
@@ -196,6 +196,7 @@ class ConvertVideoForStreaming implements ShouldQueue
             'hours' => $hours,
             'minutes' => $minutes,
             'seconds' => $seconds,
+            'quality' => $quality,
         ]);
 
 

@@ -2,6 +2,7 @@
 @section('title')
     <h4 class="py-5">{{ $title }}</h4>   
 @endsection
+
 @section('content')
     {{-- <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card p-1 mb-4">
@@ -36,7 +37,7 @@
         @if ($video->processed)
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card p-1 mb-4">
-                    <a href="watch.html">
+                    <a href="/videos/{{ $video->id }}">
                         <div class="card-icons">
                             @php
                                 $hours_add_zero = sprintf("%02d", $video->hours);
@@ -64,21 +65,22 @@
                             </span>
                             <i class="fas fa-clock"></i> <span>قبل 5 أشهر</span>
 
-                            @auth
+                            
+                        </small>
+                        @auth
                                 @if($video->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
                                     <form action="{{ route('videos.destroy', $video->id) }}" method="POST" onsubmit="return confirm('هل انت متأكد من انك تريد حذف الفيديو هذا؟')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>
+                                        <button type="submit" class="float-left button-not-hover"><i class="far fa-trash-alt text-danger fa-lg"></i></button>
                                     </form>
 
                                     <form action="{{ route('videos.edit', $video->id) }}"   method="GET">
                                         @method('PATCH')
-                                        <button type="submit" class="float-left"><i class="far fa-edit text-success fa-lg ml-3"></i></button>
+                                        <button  type="submit" class="float-left button-not-hover mr-1"><i class="far fa-edit text-success fa-lg ml-3"></i></button>
                                     </form>
                                 @endif
-                            @endauth
-                        </small>
+                        @endauth
                     </div>
                     <a href="channel.html" class="channel-img">
                         <img src="img/ch-logo.png" style="display: inline" alt="" class="rounded-circle my-2 ml-3" width="30">
